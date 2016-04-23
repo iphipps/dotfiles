@@ -7,7 +7,7 @@ Pull this repository.  Then run
 cd ~/dotfiles
 chmod +x makesymlinks.sh
 ./makesymlinks.sh
-``
+```
 which will create symlinks.
 
 ###Credits

@@ -4,6 +4,13 @@ au BufNewFile,BufRead *.mas set syntax=mason
 au BufNewFile,BufRead *.xmp set syntax=mason
 au BufNewFile,BufRead *.css set syntax=css
 au BuFNewFile,BufRead *.scss set syntax=css
+au BufNewFile,BufRead *.html set syntax=html
+au BufNewFile,BufRead *.jsp set syntax=jsp
+au BufNewFile,BufRead *.tag set syntax=jsp
+au BufNewFile,BufRead *.scss set syntax=scss
+au BufNewFile,BufRead *.js set syntax=javascript
+filetype plugin indent on
+
 set expandtab           " 4 tabs per space
 set shiftwidth=4        " less indenting
 set tabstop=4           " wow
@@ -13,8 +20,8 @@ set cindent             " wicked smart!
 set showmatch           " match my brackets plox
 set autoread            " keep on the lookout for changing files
 set t_Co=256            " more colors!
+set backspace=indent,eol,start
 nore ; :
-
 
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
@@ -43,10 +50,13 @@ Plugin 'VundleVim/Vundle.vim'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
 " # Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'mustache/vim-mustache-handlebars'
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 " # Plugin 'ascenator/L9', {'name': 'newL9'}
 " All of your Plugins must be added before the following line
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:

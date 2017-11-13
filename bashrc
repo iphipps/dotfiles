@@ -1,4 +1,3 @@
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash

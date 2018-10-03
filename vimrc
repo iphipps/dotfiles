@@ -5,14 +5,9 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 syntax on
-au BufNewFile,BufRead *.cmp set syntax=mason
-au BufNewFile,BufRead *.mas set syntax=mason
-au BufNewFile,BufRead *.xmp set syntax=mason
 au BufNewFile,BufRead *.css set syntax=css
 au BuFNewFile,BufRead *.scss set syntax=css
 au BufNewFile,BufRead *.html set syntax=html
-au BufNewFile,BufRead *.jsp set syntax=jsp
-au BufNewFile,BufRead *.tag set syntax=jsp
 au BufNewFile,BufRead *.scss set syntax=scss
 au BufNewFile,BufRead *.js set syntax=javascript
 filetype plugin indent on

@@ -13,8 +13,8 @@ au BufNewFile,BufRead *.js set syntax=javascript
 filetype plugin indent on
 
 set expandtab           " 4 tabs per space
-set shiftwidth=4        " less indenting
-set tabstop=4           " wow
+set shiftwidth=2        " less indenting
+set tabstop=2           " wow
 set scrolloff=5         " the floor is lava!
 set smarttab            " smart tabs and backspaces
 set cindent             " wicked smart!
@@ -23,6 +23,7 @@ set autoread            " keep on the lookout for changing files
 set t_Co=256            " more colors!
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set backspace=indent,eol,start
+set fillchars+=vert:\   " make the splitter prettier
 nore ; :
 
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
@@ -37,9 +38,11 @@ call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'ctrlpvim/ctrlp.vim', {'on': '<Plug>CtrlP'}
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'leafgarland/typescript-vim'
+Plug 'airblade/vim-gitgutter'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -63,3 +66,12 @@ let g:prettier#config#prose_wrap = 'preserve'
 
 let g:ctrlp_cmd = 'CtrlP'  
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg)$'
+
+" NERDTree settings
+:set mouse=a
+let g:NERDTreeMouseMode=3 
+
+" Allow local overrides
+if !empty(glob('~/.local_vimrc'))
+  :so ~/.local_vimrc
+endif

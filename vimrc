@@ -24,6 +24,7 @@ set t_Co=256            " more colors!
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set backspace=indent,eol,start
 set fillchars+=vert:\   " make the splitter prettier
+set number              " add line numbers
 nore ; :
 
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
@@ -74,7 +75,9 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg)$'
 :set mouse=a
 let g:NERDTreeMouseMode=3 
 let g:NERDTreeShowHidden=1
-let g:NERDTreeIgnore = ['\.DS_Store$']
+let g:NERDTreeIgnore = ['\.DS_Store$', '*.swp']
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Allow local overrides
 if !empty(glob('~/.local_vimrc'))

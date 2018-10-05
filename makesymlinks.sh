@@ -32,7 +32,7 @@ done
 
 # increase defaults
 echo "Making the keys faster"
-    defaults write -g InitialKeyRepeat -int 8
+    defaults write -g InitialKeyRepeat -int 12
 echo "Initial key repeat is now `defaults read -g InitialKeyRepeat`"
     defaults write -g KeyRepeat -int 1
 echo "Key repeat is now `defaults read -g KeyRepeat`"

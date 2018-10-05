@@ -73,6 +73,8 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg)$'
 " NERDTree settings
 :set mouse=a
 let g:NERDTreeMouseMode=3 
+let g:NERDTreeShowHidden=1
+let g:NERDTreeIgnore = ['\.DS_Store$']
 
 " Allow local overrides
 if !empty(glob('~/.local_vimrc'))

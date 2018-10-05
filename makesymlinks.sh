@@ -29,11 +29,3 @@ for file in $files; do
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/.$file
 done
-
-# increase defaults
-echo "Making the keys faster"
-    defaults write -g InitialKeyRepeat -int 12
-echo "Initial key repeat is now `defaults read -g InitialKeyRepeat`"
-    defaults write -g KeyRepeat -int 1
-echo "Key repeat is now `defaults read -g KeyRepeat`"
-echo "Done setting defaults"

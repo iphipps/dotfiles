@@ -79,6 +79,11 @@ let g:NERDTreeIgnore = ['\.DS_Store$', '*.swp']
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
+" Ale settins
+let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+let g:ale_sign_warning = '.'
+let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+
 " Allow local overrides
 if !empty(glob('~/.local_vimrc'))
   :so ~/.local_vimrc

@@ -68,8 +68,8 @@ let g:prettier#config#prose_wrap = 'preserve'
 
 " CtrlP settings
 
-let g:ctrlp_cmd = 'CtrlP'  
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg)$'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " NERDTree settings
 :set mouse=a

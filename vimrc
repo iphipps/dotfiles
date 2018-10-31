@@ -12,6 +12,7 @@ au BufNewFile,BufRead *.scss set syntax=scss
 au BufNewFile,BufRead *.js set syntax=javascript
 filetype plugin indent on
 
+set background=dark     " terminal theme is darkish hence
 set expandtab           " 4 tabs per space
 set shiftwidth=2        " less indenting
 set tabstop=2           " wow
@@ -25,6 +26,9 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set backspace=indent,eol,start
 set fillchars+=vert:\   " make the splitter prettier
 set number              " add line numbers
+set mouse=a             " allow mouse to click on nerdtree files
+vmap <C-c> "+y          " allow mouse to copy to clipboard
+set clipboard=unnamed   " allow mouse to copy to clipboard
 nore ; :
 
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
@@ -47,6 +51,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'w0rp/ale'
+Plug 'iangreenleaf/yaml.vim'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -72,16 +77,15 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " NERDTree settings
-:set mouse=a
 let g:NERDTreeMouseMode=3 
 let g:NERDTreeShowHidden=1
-let g:NERDTreeIgnore = ['\.DS_Store$', '*.swp']
+let g:NERDTreeIgnore = ['\.DS_Store$', '*.swp', '.git']
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Ale settins
-let g:ale_sign_error = '●' " Less aggressive than the default '>>'
-let g:ale_sign_warning = '.'
+let g:ale_sign_error = '⚡️' " Less aggressive than the default '>>'
+let g:ale_sign_warning = '⚠️'
 let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 
 " Allow local overrides

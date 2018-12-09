@@ -10,6 +10,8 @@ au BuFNewFile,BufRead *.scss set syntax=css
 au BufNewFile,BufRead *.html set syntax=html
 au BufNewFile,BufRead *.scss set syntax=scss
 au BufNewFile,BufRead *.js set syntax=javascript
+au BufNewFile,BufRead *.slim setlocal filetype=slim
+
 filetype plugin indent on
 
 set background=dark     " terminal theme is darkish hence
@@ -51,7 +53,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'w0rp/ale'
-Plug 'iangreenleaf/yaml.vim'
+Plug 'Valloric/YouCompleteMe'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -61,10 +63,10 @@ let g:prettier#config#tab_width = 2
 let g:prettier#config#use_tabs = 'false'
 let g:prettier#config#semi = 'true'
 let g:prettier#config#single_quote = 'true'
-let g:prettier#config#bracket_spacing = 'false'
+let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#jsx_bracket_same_line = 'true'
 let g:prettier#config#arrow_parens = 'always'
-let g:prettier#config#trailing_comma = 'all'
+let g:prettier#config#trailing_comma = 'none'
 " flow|babylon|typescript|css|less|scss|json|graphql|markdown
 " Prettier default: babylon
 let g:prettier#config#parser = 'flow'
@@ -87,6 +89,7 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let g:ale_sign_error = '⚡️' " Less aggressive than the default '>>'
 let g:ale_sign_warning = '⚠️'
 let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+let g:ale_linters = {'javascript': ['eslint']}
 
 " Allow local overrides
 if !empty(glob('~/.local_vimrc'))

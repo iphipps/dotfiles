@@ -29,8 +29,14 @@ set backspace=indent,eol,start
 set fillchars+=vert:\   " make the splitter prettier
 set number              " add line numbers
 set mouse=a             " allow mouse to click on nerdtree files
-vmap <C-c> "+y          " allow mouse to copy to clipboard
+vmap <C-c> "+y
+" allow mouse to copy to clipboard
 set clipboard=unnamed   " allow mouse to copy to clipboard
+set hls                 " allow highlighting when using *
+noremap <space> :
+" map space to :
+noremap : <NOP>
+" remove :
 nore ; :
 
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
@@ -54,8 +60,13 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'w0rp/ale'
 Plug 'Valloric/YouCompleteMe'
+Plug 'rust-lang/rust.vim'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+
+" General settings
+let mapleader = ","
 
 " Prettier settings
 let g:prettier#config#print_width = 80

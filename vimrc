@@ -38,6 +38,11 @@ noremap <space> :
 noremap : <NOP>
 " remove :
 nore ; :
+nnoremap <leader>. :CtrlPTag<cr>
+
+" Move swap file from beside the source file
+ set swapfile
+ set dir=~/.tmp
 
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
@@ -96,7 +101,10 @@ let g:NERDTreeIgnore = ['\.DS_Store$', '*.swp', '.git']
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-" Ale settins
+" Ycm settings
+let g:ycm_collect_identifiers_from_tags_files = 1
+
+" Ale settings
 let g:ale_sign_error = '⚡️' " Less aggressive than the default '>>'
 let g:ale_sign_warning = '⚠️'
 let g:ale_lint_on_enter = 0 " Less distracting when opening a new file

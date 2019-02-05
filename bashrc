@@ -20,3 +20,4 @@ alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias gitcur="git branch | grep '* ' | sed -e 's/* //g' | pbcopy"
 # get branches by author sorted by committerdate (thanks stack overflow)
 alias gitbranchauth="git for-each-ref --format='%(committerdate) %09 %(authorname) %09 %(refname)' | sort -k5n -k2M -k3n -k4n"
+

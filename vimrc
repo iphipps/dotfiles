@@ -27,8 +27,8 @@ set t_Co=256            " more colors!
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set backspace=indent,eol,start
 set fillchars+=vert:\   " make the splitter prettier
-set number              " add line numbers
 set mouse=a             " allow mouse to click on nerdtree files
+set number relativenumber              " add line numbers
 vmap <C-c> "+y
 " allow mouse to copy to clipboard
 set clipboard=unnamed   " allow mouse to copy to clipboard
@@ -66,6 +66,7 @@ Plug 'mxw/vim-jsx'
 Plug 'w0rp/ale'
 Plug 'Valloric/YouCompleteMe'
 Plug 'rust-lang/rust.vim'
+Plug 'editorconfig/editorconfig-vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -83,6 +84,7 @@ let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#jsx_bracket_same_line = 'true'
 let g:prettier#config#arrow_parens = 'always'
 let g:prettier#config#trailing_comma = 'none'
+let g:prettier#autoformat = 1
 " flow|babylon|typescript|css|less|scss|json|graphql|markdown
 " Prettier default: babylon
 let g:prettier#config#parser = 'flow'

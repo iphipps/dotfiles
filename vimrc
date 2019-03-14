@@ -5,13 +5,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 syntax on
-au BufNewFile,BufRead *.css set syntax=css
-au BuFNewFile,BufRead *.scss set syntax=css
-au BufNewFile,BufRead *.html set syntax=html
-au BufNewFile,BufRead *.scss set syntax=scss
-au BufNewFile,BufRead *.js set syntax=javascript
-au BufNewFile,BufRead *.slim setlocal filetype=slim
-
+au BufNewFile,BufRead *.dsld set syntax=groovy
 filetype plugin indent on
 
 set background=dark     " terminal theme is darkish hence
@@ -67,6 +61,7 @@ Plug 'w0rp/ale'
 Plug 'Valloric/YouCompleteMe'
 Plug 'rust-lang/rust.vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'sheerun/vim-polyglot'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -102,6 +97,8 @@ let g:NERDTreeShowHidden=1
 let g:NERDTreeIgnore = ['\.DS_Store$', '*.swp', '.git']
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Close nerdtree when closing file
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Ycm settings
 let g:ycm_collect_identifiers_from_tags_files = 1

@@ -29,3 +29,10 @@ for file in $files; do
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/.$file
 done
+
+# move custom files as well
+echo "Moving custom files"
+mv ~/.config/ranger/rc.conf ~/dotfiles_old/rc.conf
+echo "Create the symlink to file"
+ln -s $dir/rc.conf ~/.config/ranger/rc.conf
+

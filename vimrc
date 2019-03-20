@@ -109,6 +109,9 @@ let g:ale_sign_warning = '⚠️'
 let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 let g:ale_linters = {'javascript': ['eslint']}
 
+" Editor config settings -- requires a brew install editorconfig
+let g:EditorConfig_core_mode = 'external_command'
+
 " Allow local overrides
 if !empty(glob('~/.local_vimrc'))
   :so ~/.local_vimrc

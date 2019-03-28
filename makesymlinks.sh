@@ -32,7 +32,9 @@ done
 
 # move custom files as well
 echo "Moving custom files"
-mv ~/.config/ranger/rc.conf ~/dotfiles_old/rc.conf
+mv ~/.config/ranger/rc.conf ~/dotfiles_old/ranger/rc.conf
+mv ~/.config/ranger/rifle.conf ~/dotfiles_old/ranger/rifle.conf
 echo "Create the symlink to file"
-ln -s $dir/rc.conf ~/.config/ranger/rc.conf
+ln -s $dir/ranger/rc.conf ~/.config/ranger/rc.conf
+ln -s $dir/ranger/rifle.conf ~/.config/ranger/rifle.conf
 

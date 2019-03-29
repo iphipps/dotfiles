@@ -30,7 +30,9 @@ for file in $files; do
     ln -s $dir/$file ~/.$file
 done
 
-# move custom files as well
+# Ranger
+echo "Do ranger stuff"
+ranger --copy-config=all
 echo "Moving custom files"
 mv ~/.config/ranger/rc.conf ~/dotfiles_old/ranger/rc.conf
 mv ~/.config/ranger/rifle.conf ~/dotfiles_old/ranger/rifle.conf

@@ -29,3 +29,16 @@ for file in $files; do
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/.$file
 done
+
+# Ranger
+echo "Do ranger stuff"
+ranger --copy-config=all
+echo "Moving custom files"
+mv ~/.config/ranger/rc.conf ~/dotfiles_old/ranger/rc.conf
+mv ~/.config/ranger/rifle.conf ~/dotfiles_old/ranger/rifle.conf
+mv ~/.config/ranger/scope.sh ~/dotfiles_old/ranger/scope.sh
+echo "Create the symlink to file"
+ln -s $dir/ranger/rc.conf ~/.config/ranger/rc.conf
+ln -s $dir/ranger/rifle.conf ~/.config/ranger/rifle.conf
+ln -s $dir/ranger/scope.sh ~/.config/ranger/scope.sh
+

@@ -58,10 +58,15 @@ Plug 'airblade/vim-gitgutter'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'w0rp/ale'
-Plug 'Valloric/YouCompleteMe'
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'rust-lang/rust.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -91,6 +96,12 @@ let g:prettier#config#prose_wrap = 'preserve'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
+" Completion settings
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#tag#cache_limit_size = 5000000
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 " NERDTree settings
 let g:NERDTreeMouseMode=3 
 let g:NERDTreeShowHidden=1
@@ -100,17 +111,19 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Close nerdtree when closing file
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" Ycm settings
-let g:ycm_collect_identifiers_from_tags_files = 1
-
 " Ale settings
 let g:ale_sign_error = '⚡️' " Less aggressive than the default '>>'
 let g:ale_sign_warning = '⚠️'
 let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_completion_enabled = 1
+
 
 " Editor config settings -- requires a brew install editorconfig
 let g:EditorConfig_core_mode = 'external_command'
+
+" Ctags
+set tags=./tags;
 
 " Allow local overrides
 if !empty(glob('~/.local_vimrc'))

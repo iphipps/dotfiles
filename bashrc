@@ -6,7 +6,16 @@ if [ -f ~/.local_bashrc ]; then
  . ~/.local_bashrc
 fi
 
-source ~/utils/enhancd/init.sh
+if if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  if [ -f ~/.linux_bashrc ]; then
+    . ~/.linux_bashrc
+  fi
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  if [ -f ~/.mac_bashrc ]; then
+    . ~/.mac_bashrc
+  fi
+fi
+
 # make bash history save
 shopt -s histappend
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
@@ -27,7 +36,7 @@ alias watch-git-diff='watch -n 8 --color git diff --stat --color=always'
 alias watch-git-diff-cache='watch -n 8 --color git diff --stat --cached --color=always'
 alias watch-git-log='watch --color -n 8 git log --oneline --graph --decorate --remotes --branches --color=always'
 alias gb-del='git fetch -p && for branch in `git branch -vv | grep '\'': gone]'\'' | awk '\''{print $1}'\''`; do git branch -D $branch; done'
-alias ctags="`brew --prefix`/bin/ctags"
+# alias ctags="`brew --prefix`/bin/ctags"
 export N_PREFIX="$HOME/n"
 
 export EDITOR=/usr/local/bin/vim

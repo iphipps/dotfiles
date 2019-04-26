@@ -9,6 +9,7 @@ sudo apt-get install -y \
   ranger \
   tree \
   vim \
+  xclip \
   wget 
 
 

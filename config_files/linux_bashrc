@@ -1,3 +1,4 @@
 export EDITOR=/usr/bin/vim
+alias fd=fdfind
 alias pbcopy="xclip -sel clip"
 alias pbpaste='xclip -selection clipboard -o'

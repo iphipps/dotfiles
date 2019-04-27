@@ -10,6 +10,9 @@ sudo apt-get install -y \
   tree \
   vim \
   xclip \
-  wget 
+  wget \
+  silversearcher-ag \
+  fd-find \
+  npm
 
 

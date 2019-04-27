@@ -6,8 +6,8 @@
 
 ########## Variables
 
-dir=~/dotfiles                    # dotfiles directory
-olddir=~/dotfiles_old             # old dotfiles backup directory
+dir=~/dotfiles/config_files                    # dotfiles directory
+olddir=~/dotfiles_old/config_files             # old dotfiles backup directory
 files="bashrc vimrc git-completion.bash mac_bashrc linux_bashrc"    # list of files/folders to symlink in homedir
 
 ##########
@@ -25,7 +25,7 @@ echo "...done"
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
 for file in $files; do
     echo "Moving any existing dotfiles from ~ to $olddir"
-    mv ~/.$file ~/dotfiles_old/
+    mv ~/.$file ~/dotfiles_old/config_files
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/.$file
 done
@@ -34,9 +34,9 @@ done
 echo "Do ranger stuff"
 ranger --copy-config=all
 echo "Moving custom files"
-mv ~/.config/ranger/rc.conf ~/dotfiles_old/ranger/rc.conf
-mv ~/.config/ranger/rifle.conf ~/dotfiles_old/ranger/rifle.conf
-mv ~/.config/ranger/scope.sh ~/dotfiles_old/ranger/scope.sh
+mv ~/.config/ranger/rc.conf ~/dotfiles_old/config_files/ranger/rc.conf
+mv ~/.config/ranger/rifle.conf ~/dotfiles_old/config_files/ranger/rifle.conf
+mv ~/.config/ranger/scope.sh ~/dotfiles_old/config_fies/ranger/scope.sh
 echo "Create the symlink to file"
 ln -s $dir/ranger/rc.conf ~/.config/ranger/rc.conf
 ln -s $dir/ranger/rifle.conf ~/.config/ranger/rifle.conf

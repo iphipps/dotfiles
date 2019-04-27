@@ -4,7 +4,7 @@
 xset r rate 240 60
 
 # Make caps escape
-setxkbmap -option caps:swapeescape
+setxkbmap -option caps:escape
 
 
 

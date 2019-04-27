@@ -33,12 +33,18 @@ done
 # Ranger
 echo "Do ranger stuff"
 ranger --copy-config=all
-echo "Moving custom files"
-mv ~/.config/ranger/rc.conf ~/dotfiles_old/config_files/ranger/rc.conf
-mv ~/.config/ranger/rifle.conf ~/dotfiles_old/config_files/ranger/rifle.conf
-mv ~/.config/ranger/scope.sh ~/dotfiles_old/config_fies/ranger/scope.sh
-echo "Create the symlink to file"
-ln -s $dir/ranger/rc.conf ~/.config/ranger/rc.conf
-ln -s $dir/ranger/rifle.conf ~/.config/ranger/rifle.conf
-ln -s $dir/ranger/scope.sh ~/.config/ranger/scope.sh
+
+defaultCodeExts="xml|json|csv|tex|py|pl|rb|js|sh|php"
+replaceCodeExts="xml|json|csv|tex|py|pl|rb|js|jsx|tsx|ts|scss|sass|sh|php" 
+sed -i "s/$defaultCodeExts/$replaceCodeExts/g" ~/.config/ranger/rifle.conf
+
+defaultConsole='map :  console'
+replaceConsole='map <Space> console'
+defaultMark='map <Space> mark_files toggle=True'
+replaceMark='map : mark_files toggle=True'
+
+sed -i "s/$defaultConsole/$replaceConsole/" ~/.config/ranger/rc.conf
+sed -i "s/$defaultMark/$replaceMark/" ~/.config/ranger/rc.conf
+
+
 

@@ -37,7 +37,6 @@ alias watch-git-log='watch --color -n 8 git log --oneline --graph --decorate --r
 alias gb-del='git fetch -p && for branch in `git branch -vv | grep '\'': gone]'\'' | awk '\''{print $1}'\''`; do git branch -D $branch; done'
 export N_PREFIX="$HOME/n"
 
-export EDITOR=/usr/local/bin/vim
 
 export PATH="$PATH:$HOME/.local/bin"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.

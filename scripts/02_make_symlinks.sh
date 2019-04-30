@@ -32,19 +32,32 @@ done
 
 # Ranger
 echo "Do ranger stuff"
-ranger --copy-config=all
+
+if [ ! -d ~/.config/ranger ]; then
+  ranger --copy-config=all
+fi
 
 defaultCodeExts="xml|json|csv|tex|py|pl|rb|js|sh|php"
 replaceCodeExts="xml|json|csv|tex|py|pl|rb|js|jsx|tsx|ts|scss|sass|sh|php" 
-sed -i "s/$defaultCodeExts/$replaceCodeExts/g" ~/.config/ranger/rifle.conf
+sed -i'' -e "s/$defaultCodeExts/$replaceCodeExts/g" ~/.config/ranger/rifle.conf
+matchLinesToRemove="ext x?html?"
+sed -i'' -e "/$matchLinesToRemove/d" ~/.config/ranger/rifle.conf
+
 
 defaultConsole='map :  console'
 replaceConsole='map <Space> console'
 defaultMark='map <Space> mark_files toggle=True'
 replaceMark='map : mark_files toggle=True'
+defaultHidden='set show_hidden false'
+replaceHidden='set show_hidden true'
 
-sed -i "s/$defaultConsole/$replaceConsole/" ~/.config/ranger/rc.conf
-sed -i "s/$defaultMark/$replaceMark/" ~/.config/ranger/rc.conf
+sed -i'' -e "s/$defaultConsole/$replaceConsole/" ~/.config/ranger/rc.conf
+sed -i'' -e "s/$defaultMark/$replaceMark/" ~/.config/ranger/rc.conf
+sed -i'' -e "s/$defaultHidden/$replaceHidden/" ~/.config/ranger/rc.conf
 
+defaultHtmlPreview='htm|html|xhtml)'
+replaceHtmlPreview='htm|xhtml)'
+
+sed -i'' -e "s/$defaultHtmlPreview/$replaceHtmlPreview/" ~/.config/ranger/scope.sh
 
 

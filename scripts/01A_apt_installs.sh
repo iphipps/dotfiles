@@ -9,6 +9,10 @@ sudo apt-get install -y \
   ranger \
   tree \
   vim \
-  wget 
+  xclip \
+  wget \
+  silversearcher-ag \
+  fd-find \
+  npm
 
 

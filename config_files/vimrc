@@ -34,6 +34,12 @@ noremap : <NOP>
 nore ; :
 nnoremap <leader>. :CtrlPTag<cr>
 
+" Code folding
+set foldmethod=indent   "fold based on indent
+set foldnestmax=8      "deepest fold
+set nofoldenable        "dont fold by default
+set foldlevel=1         "begin fold
+
 " Move swap file from beside the source file
  set swapfile
  set dir=~/.tmp

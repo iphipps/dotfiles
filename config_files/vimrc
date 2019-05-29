@@ -24,7 +24,6 @@ set fillchars+=vert:\   " make the splitter prettier
 set mouse=a             " allow mouse to click on nerdtree files
 set number relativenumber              " add line numbers
 set cursorcolumn        " vertical highlighting of cursor
-set guicursor+=n-v-c:blinkon0 " blink cursor on insert mode
 
 vmap <C-c> "+y
 " allow mouse to copy to clipboard
@@ -47,6 +46,7 @@ set foldlevel=1         "begin fold
  set swapfile
  set dir=~/.tmp
 
+" highlight whitespace at the end of line
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 highlight EOLWS ctermbg=red guibg=red
@@ -133,5 +133,7 @@ set tags=./tags;
 
 " Allow local overrides
 if !empty(glob('~/.local_vimrc'))
+endif
 if empty(glob('~/.vim/autoload/plug.vim'))
+endif
 

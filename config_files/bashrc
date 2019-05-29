@@ -25,25 +25,12 @@ export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 alias ls='ls -GFh'
 
-# copies current branch to clipboard
-alias gitcur="git branch | grep '* ' | sed -e 's/* //g' | pbcopy"
-# get branches by author sorted by committerdate (thanks stack overflow)
-alias gitbranchauth="git for-each-ref --format='%(committerdate) %09 %(authorname) %09 %(refname)' | sort -k5n -k2M -k3n -k4n"
-alias watch-git-status='watch --color -n 8 git -c status.color=always status'
-alias watch-git-branch='watch --color -n 8 git branch -vva --color=always'
-alias watch-git-diff='watch -n 8 --color git diff --stat --color=always'
-alias watch-git-diff-cache='watch -n 8 --color git diff --stat --cached --color=always'
-alias watch-git-log='watch --color -n 8 git log --oneline --graph --decorate --remotes --branches --color=always'
-alias gb-del='git fetch -p && for branch in `git branch -vv | grep '\'': gone]'\'' | awk '\''{print $1}'\''`; do git branch -D $branch; done'
 export N_PREFIX="$HOME/n"
 
 
 export PATH="$PATH:$HOME/.local/bin"
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 

@@ -23,6 +23,9 @@ set backspace=indent,eol,start
 set fillchars+=vert:\   " make the splitter prettier
 set mouse=a             " allow mouse to click on nerdtree files
 set number relativenumber              " add line numbers
+set cursorcolumn        " vertical highlighting of cursor
+set guicursor+=n-v-c:blinkon0 " blink cursor on insert mode
+
 vmap <C-c> "+y
 " allow mouse to copy to clipboard
 set clipboard=unnamed   " allow mouse to copy to clipboard
@@ -113,9 +116,6 @@ let g:NERDTreeMouseMode=3
 let g:NERDTreeShowHidden=1
 let g:NERDTreeIgnore = ['\.DS_Store$', '*.swp', '.git']
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" Close nerdtree when closing file
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Ale settings
 let g:ale_sign_error = '⚡️' " Less aggressive than the default '>>'
@@ -133,5 +133,5 @@ set tags=./tags;
 
 " Allow local overrides
 if !empty(glob('~/.local_vimrc'))
-  :so ~/.local_vimrc
-endif
+if empty(glob('~/.vim/autoload/plug.vim'))
+

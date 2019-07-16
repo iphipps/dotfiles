@@ -3,3 +3,8 @@ export EDITOR=/usr/local/bin/vim
 source ~/utils/enhancd/init.sh
 
 alias ctags="`brew --prefix`/bin/ctags"
+alias python="python3"
+alias idle="idle3"
+alias pip="pip3"
+
+

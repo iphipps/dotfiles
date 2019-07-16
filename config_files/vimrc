@@ -76,6 +76,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'ruanyl/vim-sort-imports'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -104,6 +105,7 @@ let g:prettier#config#prose_wrap = 'preserve'
 
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:ctrlp_switch_buffer = 'h' " Open in new buffer
 
 " Completion settings
 let g:deoplete#enable_at_startup = 1
@@ -124,9 +126,11 @@ let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 let g:ale_linters = {'javascript': ['eslint']}
 let g:ale_completion_enabled = 1
 
+" Import sort
+" let g:import_sort_auto = 1
 
 " Editor config settings -- requires a brew install editorconfig
-let g:EditorConfig_core_mode = 'external_command'
+" let g:EditorConfig_core_mode = 'external_command'
 
 " Ctags
 set tags=./tags;

@@ -19,6 +19,10 @@ fi
 # make bash history save
 shopt -s histappend
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+export HISTFILESIZE=1000000
+export HISTSIZE=1000000
+export HISTIGNORE='ls:cat:clear:pwd'
+export HISTCONTROL=erasedups
 
 export PS1="\t \[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\W\[\033[m\]\$ "
 export CLICOLOR=1
@@ -35,3 +39,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+

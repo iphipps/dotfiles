@@ -111,7 +111,7 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 let g:ctrlp_switch_buffer = 'h' " Open in new buffer
 
 " Fuzzy settings
-"nnoremap <C-p> :FZF<CR>
+nnoremap <C-l> :FZF<CR>
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 

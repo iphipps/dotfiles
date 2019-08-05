@@ -77,6 +77,8 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'ruanyl/vim-sort-imports'
+" Statusline
+Plug 'itchyny/lightline.vim'
 " fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -134,6 +136,10 @@ let g:ale_sign_warning = '⚠️'
 let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 let g:ale_linters = {'javascript': ['eslint']}
 let g:ale_completion_enabled = 1
+
+" Lightline fixes when light line doesn't show if only one buffer
+set laststatus=2
+set noshowmode " gets rid of -- INSERT -- as is redunant
 
 " Import sort
 " let g:import_sort_auto = 1

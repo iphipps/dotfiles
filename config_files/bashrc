@@ -29,8 +29,12 @@ export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 alias ls='ls -GFh'
 
-export N_PREFIX="$HOME/n"
+alias gf="git fetch"
+alias gs="git status"
+function gp { git pull origin $(git branch); }
+export -f gp
 
+export N_PREFIX="$HOME/n"
 
 export PATH="$PATH:$HOME/.local/bin"
 

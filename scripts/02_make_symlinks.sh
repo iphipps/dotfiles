@@ -30,6 +30,9 @@ for file in $files; do
     ln -s $dir/$file ~/.$file
 done
 
+mv ~/.vim/coc-settings.json ~/dotfiles_old/config_files
+ln -s $dir/coc-settings.json ~/.vim/coc-settings.json
+
 # Ranger
 echo "Do ranger stuff"
 

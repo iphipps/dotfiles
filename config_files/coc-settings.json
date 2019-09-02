@@ -1,0 +1,7 @@
+{
+  "diagnostic.errorSign": "🚫",
+  "diagnostic.warningSign": "⚠️",
+  "diagnostic.infoSign": "💁",
+  "rust.clippy_preference": "on",
+  "tsserver.enableJavascript": false
+}

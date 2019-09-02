@@ -30,6 +30,9 @@ for file in $files; do
     ln -s $dir/$file ~/.$file
 done
 
+mv ~/.vim/coc-settings.json ~/dotfiles_old/config_files
+ln -s $dir/coc-settings.json ~/.vim/coc-settings.json
+
 # Ranger
 echo "Do ranger stuff"
 
@@ -38,7 +41,7 @@ if [ ! -d ~/.config/ranger ]; then
 fi
 
 defaultCodeExts="xml|json|csv|tex|py|pl|rb|js|sh|php"
-replaceCodeExts="xml|json|csv|tex|py|pl|rb|js|jsx|tsx|ts|scss|sass|sh|php" 
+replaceCodeExts="xml|json|csv|tex|py|pl|rb|js|jsx|tsx|ts|scss|sass|sh|rs|php" 
 sed -i'' -e "s/$defaultCodeExts/$replaceCodeExts/g" ~/.config/ranger/rifle.conf
 matchLinesToRemove="ext x?html?"
 sed -i'' -e "/$matchLinesToRemove/d" ~/.config/ranger/rifle.conf

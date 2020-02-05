@@ -1,0 +1,12 @@
+
+# zplug
+ZPLUG_HOME=~/.zplug
+source $ZPLUG_HOME/init.zsh
+
+export EDITOR=/usr/local/bin/vim
+alias pbcopy="xclip -sel clip"
+alias pbpaste='xclip -selection clipboard -o'
+
+if [ -d "/usr/lib/postgresql/11/bin" ]; then
+  PATH="/usr/lib/postgresql/11/bin:$PATH"
+fi

@@ -8,9 +8,7 @@
 
 dir=~/dotfiles/config_files                    # dotfiles directory
 olddir=~/dotfiles_old/config_files             # old dotfiles backup directory
-files="bashrc vimrc git-completion.bash mac_bashrc linux_bashrc inputrc gitignore_global"    # list of files/folders to symlink in homedir
-
-##########
+files="vimrc zshrc mac_zshrc linux_zshrc inputrc gitignore_global ignore tmux.conf"    # list of files/folders to symlink in homedir
 
 # create dotfiles_old in homedir
 echo "Creating $olddir for backup of any existing dotfiles in ~"
@@ -63,4 +61,7 @@ replaceHtmlPreview='htm|xhtml)'
 
 sed -i'' -e "s/$defaultHtmlPreview/$replaceHtmlPreview/" ~/.config/ranger/scope.sh
 
+# Swap file dir
+mv ~/.tmp ~/dotfiles_old/.tmp
+mkdir ~/.tmp
 

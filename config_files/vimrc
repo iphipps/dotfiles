@@ -8,51 +8,57 @@ syntax on
 filetype plugin indent on
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
+set autoread
+set hidden              " hide the unsaved buffer
+set updatetime=400      " increase update time
 set background=dark     " terminal theme is darkish hence
 set expandtab           " 4 tabs per space
 set shiftwidth=2        " less indenting
 set tabstop=2           " wow
-set scrolloff=5         " the floor is lava!
+set scrolloff=5         " keeps cursor more centered 
 set smarttab            " smart tabs and backspaces
 set cindent             " wicked smart!
-set showmatch           " match my brackets plox
+set showmatch           " match brakets
 set autoread            " keep on the lookout for changing files
 set t_Co=256            " more colors!
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store
 set backspace=indent,eol,start
 set fillchars+=vert:\   " make the splitter prettier
 set mouse=a             " allow mouse to click on nerdtree files
 set number relativenumber              " add line numbers
-set cursorcolumn        " vertical highlighting of cursor
+set cursorcolumn
+
+set cursorline
+" highlight CursorLine ctermbg=DarkGreen
+" autocmd InsertEnter * highlight CursorLine ctermbg=Blue
+" autocmd InsertLeave * highlight CursorLine ctermbg=DarkGreen
+
+set incsearch           " match search while searching
 
 vmap <C-c> "+y
 " allow mouse to copy to clipboard
 set clipboard=unnamed   " allow mouse to copy to clipboard
 set hls                 " allow highlighting when using *
-noremap <space> :
-" map space to :
-noremap : <NOP>
-" remove :
-nore ; :
-nnoremap <leader>. :CtrlPTag<cr>
 
 " Code folding
 set foldmethod=indent   "fold based on indent
 set foldnestmax=8      "deepest fold
-set nofoldenable        "dont fold by default
+set nofoldenable        "don't fold by default
 set foldlevel=1         "begin fold
 
 " Move swap file from beside the source file
 set swapfile
 set dir=~/.tmp
 
-" highlight whitespace at the end of line
+" Split
+set splitbelow " better defaults
+set splitright
+
+" highlight white space at the end of line
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 highlight EOLWS ctermbg=red guibg=red
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
 
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
@@ -61,19 +67,13 @@ call plug#begin('~/.vim/plugged')
 " Auto Complete
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
-
 " Navigation
-Plug 'ctrlpvim/ctrlp.vim'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'airblade/vim-gitgutter'
+Plug 'francoiscabrol/ranger.vim'
 
-" Error handling -- might not need this based on coc
-Plug 'w0rp/ale'
-
-" Javascript/Typescript
+" JavaScript/Typescript
 Plug 'leafgarland/typescript-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -82,12 +82,16 @@ Plug 'mxw/vim-jsx'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 
+" Formatters
 Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'ruanyl/vim-sort-imports'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
-" Statusline
+"Auto save
+Plug '907th/vim-auto-save'
+
+" Status line
 Plug 'itchyny/lightline.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
@@ -107,65 +111,43 @@ let g:prettier#config#jsx_bracket_same_line = 'true'
 let g:prettier#config#arrow_parens = 'always'
 let g:prettier#config#trailing_comma = 'none'
 let g:prettier#autoformat = 1
-" flow|babylon|typescript|css|less|scss|json|graphql|markdown
-" Prettier default: babylon
 let g:prettier#config#parser = 'flow'
 let g:prettier#config#config_precedence = 'prefer-file'
 let g:prettier#config#prose_wrap = 'preserve'
 
-" CtrlP settings
 
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-let g:ctrlp_switch_buffer = 'h' " Open in new buffer
 let g:rustfmt_autosave = 1
 
-" Fuzzy settings
-nnoremap <C-l> :FZF<CR>
+" Enable the auto save
+let g:auto_save = 1
+let g:auto_save_silent = 1
+let g:auto_save_write_all_buffers = 1
 
-let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
 
 " Completion settings
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Coc settings
+source ~/dotfiles/config_files/vim/coc.vim
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" NERDTree settings
-let g:NERDTreeMouseMode=3 
-let g:NERDTreeShowHidden=1
-let g:NERDTreeIgnore = ['\.DS_Store$', '*.swp', '.git']
-autocmd StdinReadPre * let s:std_in=1
-
-" Ale settings
-let g:ale_sign_error = '⚡️' " Less aggressive than the default '>>'
-let g:ale_sign_warning = '⚠️'
-let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
-let g:ale_linters = {'javascript': ['eslint']}
-let g:ale_completion_enabled = 1
+" Key Bindings
+source ~/dotfiles/config_files/vim/keybindings.vim
 
 " Lightline fixes when light line doesn't show if only one buffer
 set laststatus=2
-set noshowmode " gets rid of -- INSERT -- as is redunant
+set noshowmode " gets rid of -- INSERT -- as is redundant
 
 " Import sort
 " let g:import_sort_auto = 1
 
-" Editor config settings -- requires a brew install editorconfig
-" let g:EditorConfig_core_mode = 'external_command'
+" Ranger Vim
+let g:ranger_map_keys = 0 " Do not use default keymapping.
+let g:ranger_replace_netrw = 1
+let g:ranger_command_override = 'ranger --cmd "set show_hidden=true"'
 
-" Ctags
-set tags=./tags;
+
+" Language specific 
+source ~/dotfiles/config_files/vim/markdown.vim
 
 " Allow local overrides
 if !empty(glob('~/.local_vimrc'))

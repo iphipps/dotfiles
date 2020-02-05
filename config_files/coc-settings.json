@@ -1,7 +1,30 @@
 {
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "Markdown",
+    "json",
+    "tsx",
+    "ts",
+    "rust"
+  ],
   "diagnostic.errorSign": "🚫",
   "diagnostic.warningSign": "⚠️",
   "diagnostic.infoSign": "💁",
   "rust.clippy_preference": "on",
-  "tsserver.enableJavascript": false
+  "tsserver.enableJavascript": true,
+  "git.realtimeGutters": true,
+  "codeLens.enable": true,
+  "list.insertMappings": {
+    "<C-x>": "action:split",
+    "<C-v>": "action:vsplit"
+  },
+  "list.normalMappings": {
+    "s": "action:split",
+    "v": "action:vsplit"
+  },
+  "list.source.files.command": "fdfind",
+  "list.source.files.args": ["--hidden", "--type", "f"],
+  "list.maxPreviewHeight": 32,
+  "list.previewSplitRight": true,
+  "suggest.enablePreview": true
 }

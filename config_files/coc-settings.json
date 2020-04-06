@@ -1,12 +1,5 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "css",
-    "Markdown",
-    "json",
-    "tsx",
-    "ts",
-    "rust"
-  ],
+  "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown", "json", "rust"],
   "diagnostic.errorSign": "🚫",
   "diagnostic.warningSign": "⚠️",
   "diagnostic.infoSign": "💁",

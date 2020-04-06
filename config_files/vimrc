@@ -8,7 +8,8 @@ syntax on
 filetype plugin indent on
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
-set autoread
+set nobackup            " Follow Coc instructions
+set nowritebackup       " Follow Coc instructions
 set hidden              " hide the unsaved buffer
 set updatetime=400      " increase update time
 set background=dark     " terminal theme is darkish hence
@@ -27,12 +28,7 @@ set fillchars+=vert:\   " make the splitter prettier
 set mouse=a             " allow mouse to click on nerdtree files
 set number relativenumber              " add line numbers
 set cursorcolumn
-
 set cursorline
-" highlight CursorLine ctermbg=DarkGreen
-" autocmd InsertEnter * highlight CursorLine ctermbg=Blue
-" autocmd InsertLeave * highlight CursorLine ctermbg=DarkGreen
-
 set incsearch           " match search while searching
 
 vmap <C-c> "+y
@@ -41,10 +37,10 @@ set clipboard=unnamed   " allow mouse to copy to clipboard
 set hls                 " allow highlighting when using *
 
 " Code folding
-set foldmethod=indent   "fold based on indent
-set foldnestmax=8      "deepest fold
-set nofoldenable        "don't fold by default
-set foldlevel=1         "begin fold
+set foldmethod=indent   " fold based on indent
+set foldnestmax=8       " deepest fold
+set nofoldenable        " don't fold by default
+set foldlevel=1         " begin fold
 
 " Move swap file from beside the source file
 set swapfile
@@ -58,7 +54,7 @@ set splitright
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 highlight EOLWS ctermbg=red guibg=red
-
+highlight Pmenu ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
 
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')

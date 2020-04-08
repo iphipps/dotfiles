@@ -11,6 +11,8 @@ let g:coc_global_extensions = [
   \ 'coc-yaml',
   \ ]
 
+let g:coc_auto_open = 0 " do not open quickfix
+
 " Auto Completion
 "
 " Use tab for trigger completion with characters ahead and navigate.

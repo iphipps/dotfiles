@@ -1,11 +1,15 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown", "json", "rust"],
+  "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown", "rust"],
+  "coc.preferences.formatOnInsertLeave": false,
+  "coc.preferences.useQuickfixForLocations": false,
   "diagnostic.errorSign": "🚫",
   "diagnostic.warningSign": "⚠️",
   "diagnostic.infoSign": "💁",
+  "eslint.autoFix": false,
+  "eslint.autoFixOnSave": false,
   "rust.clippy_preference": "on",
-  "tsserver.enableJavascript": true,
   "git.realtimeGutters": true,
+
   "codeLens.enable": true,
   "list.insertMappings": {
     "<C-x>": "action:split",
@@ -19,5 +23,9 @@
   "list.source.files.args": ["--hidden", "--type", "f"],
   "list.maxPreviewHeight": 32,
   "list.previewSplitRight": true,
-  "suggest.enablePreview": true
+  "suggest.enablePreview": true,
+  "tsserver.enableJavascript": true,
+  "tsserver.formatOnType": false,
+  "typescript.format.enabled": false,
+  "diagnostic.refreshAfterSave": false
 }

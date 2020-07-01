@@ -2,4 +2,8 @@
 	email = phippsian@gmail.com
 	name = Ian Phipps
 [core]
-	editor = vim
+	excludesfile = ~/.gitignore_global
+[diff]
+	tool = vimdiff
+[alias]
+	lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --all

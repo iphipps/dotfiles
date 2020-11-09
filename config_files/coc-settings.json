@@ -2,6 +2,7 @@
   "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown", "rust"],
   "coc.preferences.formatOnInsertLeave": false,
   "coc.preferences.useQuickfixForLocations": false,
+  "coc.preferences.jumpCommand": "tab drop",
   "diagnostic.errorSign": "🚫",
   "diagnostic.warningSign": "⚠️",
   "diagnostic.infoSign": "💁",
@@ -19,9 +20,10 @@
     "s": "action:split",
     "v": "action:vsplit"
   },
+
   "list.source.files.command": "fdfind",
   "list.source.files.args": ["--hidden", "--type", "f"],
-  "list.maxPreviewHeight": 32,
+  "list.maxPreviewHeight": 50,
   "list.previewSplitRight": true,
   "suggest.enablePreview": true,
   "tsserver.enableJavascript": true,

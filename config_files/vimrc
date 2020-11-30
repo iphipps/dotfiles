@@ -7,6 +7,11 @@ endif
 syntax on
 filetype plugin indent on
 autocmd FileType json syntax match Comment +\/\/.\+$+
+augroup ReactFiletypes
+  autocmd!
+  autocmd BufRead,BufNewFile *.jsx set filetype=javascriptreact
+  autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
+augroup END
 
 set nobackup            " Follow Coc instructions
 set nowritebackup       " Follow Coc instructions

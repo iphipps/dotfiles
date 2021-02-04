@@ -83,6 +83,10 @@ Plug 'mxw/vim-jsx'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 
+" C#
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'nickspoons/vim-sharpenup'
+
 " Formatters
 Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
@@ -94,6 +98,10 @@ Plug '907th/vim-auto-save'
 
 " Status line
 Plug 'itchyny/lightline.vim'
+
+" DB
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()

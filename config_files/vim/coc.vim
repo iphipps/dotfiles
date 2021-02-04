@@ -9,19 +9,26 @@ let g:coc_global_extensions = [
   \ 'coc-rls',
   \ 'coc-tsserver',
   \ 'coc-yaml',
+  \ 'coc-omnisharp',
+  \ 'coc-db',
   \ ]
 
-let g:coc_auto_open = 0 " do not open quickfix
+" let g:coc_auto_open = 0 " do not open quickfix
 
 " Auto Completion
 "
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
+autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascripreact inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+
+autocmd FileType cs inoremap <silent><expr> <Tab>
+      \ pumvisible() ? '<C-n>' :                                                                                    
+      \ getline('.')[col('.')-2] =~# '[[:alnum:].-_#$]' ? '<C-x><C-o>' : '<Tab>'
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -29,9 +36,16 @@ function! s:check_back_space() abort
 endfunction
 
 
+" Formatting
+autocmd FileType cs nmap <Leader>p :OmniSharpCodeFormat<CR>
+autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascripreact nmap <Leader>p <Plug>(Prettier)
+
+
 " Go to definition
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
+autocmd FileType cs nmap <silent> gd :OmniSharpGotoDefinition<CR>
+autocmd FileType cs nmap <silent> gy :OmniSharpFindType<CR>
+autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascripreact nmap <silent> gd <Plug>(coc-definition)
+autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascripreact nmap <silent> gy <Plug>(coc-type-definition)
 
 " Rename
 nmap <leader>rn <Plug>(coc-rename)
@@ -82,5 +96,6 @@ let g:lightline = {
   \   'currentfunction': 'CocCurrentFunction'
   \ },
   \ }
+
 
 

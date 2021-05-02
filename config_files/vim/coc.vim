@@ -38,7 +38,7 @@ endfunction
 
 " Formatting
 autocmd FileType cs nmap <Leader>p :OmniSharpCodeFormat<CR>
-autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascripreact nmap <Leader>p <Plug>(Prettier)
+autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascripreact,svg,json nmap <Leader>p <Plug>(Prettier)
 
 
 " Go to definition
@@ -67,6 +67,19 @@ nnoremap <silent> <leader>ds  :<C-u>CocList services<cr>
 " grep word
 nnoremap <silent> <leader>f :<C-u>CocList grep<cr> 
 
+" Show quickfix list"
+nnoremap <silent> <leader>q :<C-u>cm
+
+" Go next/prev on quicfix list"
+nnoremap <silent> <leader>m :cn
+nnoremap <silent> <leader>n :cp
+
+" Run tsserver 
+command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
+
+" Organize Imports
+command! -nargs=0 OR :call CocAction('runCommand', 'tsserver.organizeImports')
+
 
 " grep word under cursor
 command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
@@ -93,9 +106,13 @@ let g:lightline = {
   \ },
   \ 'component_function': {
   \   'cocstatus': 'coc#status',
-  \   'currentfunction': 'CocCurrentFunction'
+  \   'currentfunction': 'CocCurrentFunction',
+  \   'filename': 'LightlineFilename'
   \ },
   \ }
 
+function! LightlineFilename()
+  return expand('%')
+endfunction
 
 

@@ -3,6 +3,7 @@
 	name = Ian Phipps
 [core]
 	excludesfile = ~/.gitignore_global
+	editor = /usr/bin/vim
 [diff]
 	tool = vimdiff
 [alias]

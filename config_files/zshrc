@@ -81,7 +81,7 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.
 
 export FZF_DEFAULT_OPS="--extended"
 #export FZF_DEFAULT_COMMAND="fd --hidden --type f --ignore-file ~/.ignore"
-export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || bat {} || tree -C {}) 2> /dev/null | head -200'"
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || tree -C {}) 2> /dev/null | head -200'"
 #export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # # # Load fuzzy find.
@@ -159,19 +159,4 @@ unset -f bind-git-helper
 source ~/.fzf/shell/key-bindings.zsh
 
 
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/ian/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/ian/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/ian/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/ian/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 

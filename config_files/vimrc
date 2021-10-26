@@ -24,6 +24,7 @@ set tabstop=2           " wow
 set scrolloff=5         " keeps cursor more centered 
 set smarttab            " smart tabs and backspaces
 set cindent             " wicked smart!
+set cmdheight=1         " command height
 set showmatch           " match brakets
 set autoread            " keep on the lookout for changing files
 set t_Co=256            " more colors!
@@ -83,10 +84,6 @@ Plug 'mxw/vim-jsx'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 
-" C#
-Plug 'OmniSharp/omnisharp-vim'
-Plug 'nickspoons/vim-sharpenup'
-
 " Formatters
 Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
@@ -99,9 +96,8 @@ Plug '907th/vim-auto-save'
 " Status line
 Plug 'itchyny/lightline.vim'
 
-" DB
-Plug 'tpope/vim-dadbod'
-Plug 'kristijanhusak/vim-dadbod-ui'
+" Git
+Plug 'tpope/vim-fugitive'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()

@@ -4,3 +4,7 @@ logfile
 /tmp
 privnotes
 *.log
+notes.txt
+notes.md
+todo.md
+alerts.md

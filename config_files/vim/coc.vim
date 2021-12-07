@@ -9,8 +9,6 @@ let g:coc_global_extensions = [
   \ 'coc-rls',
   \ 'coc-tsserver',
   \ 'coc-yaml',
-  \ 'coc-omnisharp',
-  \ 'coc-db',
   \ ]
 
 " let g:coc_auto_open = 0 " do not open quickfix
@@ -113,7 +111,7 @@ let g:lightline = {
   \ 'colorscheme': 'wombat',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
+  \             [ 'filename', 'modified' ] ]
   \ },
   \ 'component_function': {
   \   'cocstatus': 'coc#status',

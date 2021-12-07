@@ -41,6 +41,13 @@ nnoremap <silent> <C-j> :MoveToDown<cr>
 nnoremap <silent> <C-k> :MoveToUp<cr>
 nnoremap <silent> <C-l> :MoveToRight<cr>
 
+" Fugitive git bindings
+nnoremap <silent> <leader>gb :Git branch<cr>
+nnoremap <silent> <leader>l :Git blame<cr>
+
+" Clipboard
+map <C-c> :w !xclip -sel c <CR><CR>
+
 " Ranger
 nnoremap <leader>rr :Ranger<cr>
 

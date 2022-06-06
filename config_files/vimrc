@@ -32,7 +32,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,.DS_Store
 set backspace=indent,eol,start
 set fillchars+=vert:\   " make the splitter prettier
 set mouse=a             " allow mouse to click on nerdtree files
-set number relativenumber              " add line numbers
+set number              " add line numbers
 set cursorcolumn
 set cursorline
 set incsearch           " match search while searching

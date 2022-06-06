@@ -62,6 +62,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " navigation
 nnoremap <silent> <leader>b :<C-u>CocList buffers<cr>
 nnoremap <silent> <leader>h :<C-u>CocList cmdhistory<cr>
+nnoremap <silent> <C-p> :<C-u>CocList files<cr>
 
 " Show extension list
 nnoremap <silent> <leader>de  :<C-u>CocList extensions<cr>

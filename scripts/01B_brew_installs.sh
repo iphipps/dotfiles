@@ -7,5 +7,5 @@ brew install python3 rust
 brew install ranger highlight vim
 brew install editorconfig ctags
 brew install fd ag entr tree jq bat
-brew install rg zplug tmux
+brew install rg zplug tmux yarn
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

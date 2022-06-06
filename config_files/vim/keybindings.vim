@@ -1,10 +1,3 @@
-" Navigation
-nnoremap <silent> <C-p> :<C-u>CocList files<cr>
-nnoremap <silent> <leader>h :<C-u>CocList cmdhistory<cr>
-
-" Extensions
-nnoremap <silent> <leader>de  :<C-u>CocList extensions<cr>
-
 " map space to :
 noremap <space> :
 

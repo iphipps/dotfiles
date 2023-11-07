@@ -3,10 +3,10 @@ ZPLUG_HOME="$( brew --prefix )"/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
 
-export EDITOR=/usr/local/bin/vim
+export EDITOR=/usr/bin/vim
 
 alias python="python3"
 alias idle="idle3"
 alias pip="pip3"
 
-
+eval $(/opt/homebrew/bin/brew shellenv)

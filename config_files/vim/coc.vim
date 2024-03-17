@@ -52,10 +52,11 @@ endfunction
 
 " Formatting
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
-nmap <Leader>p :<C-u>Prettier<cr>
+autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascriptreact,json nmap <Leader>p :<C-u>Prettier<cr>
+autocmd FileType dart nmap <Leader>p :<C-u>DartFmt<cr>
 
 command! -nargs=0 Linter :CocCommand eslint.executeAutofix
-nmap <Leader>o :<C-u>Linter<cr>
+autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascriptreact nmap <Leader>o :<C-u>Linter<cr>
 
 
 

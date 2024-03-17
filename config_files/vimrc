@@ -76,9 +76,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'francoiscabrol/ranger.vim'
 
 " JavaScript/Typescript
-Plug 'leafgarland/typescript-vim'
+" Plug 'leafgarland/typescript-vim'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
 
 " Rust
 Plug 'rust-lang/rust.vim'
@@ -97,6 +97,9 @@ Plug 'itchyny/lightline.vim'
 
 " Git
 Plug 'tpope/vim-fugitive'
+
+" Dart
+Plug 'dart-lang/dart-vim-plugin'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()

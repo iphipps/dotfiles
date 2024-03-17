@@ -2,6 +2,7 @@
   "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown", "rust"],
   "coc.preferences.useQuickfixForLocations": false,
   "coc.preferences.jumpCommand": "tab drop",
+  "coc.source.file.ignoreHidden": false,
   "highlight.colors.enable": true,
   "highlight.colorNames.enable": true,
   "colors.filetypes": ["*"],
@@ -23,7 +24,7 @@
     "v": "action:vsplit"
   },
 
-  "list.source.files.command": "fdfind",
+  "list.source.files.command": "fd",
   "list.source.files.args": ["--hidden", "--type", "f"],
   "list.maxPreviewHeight": 50,
   "list.previewSplitRight": true,

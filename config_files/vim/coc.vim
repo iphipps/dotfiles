@@ -24,9 +24,12 @@ autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascripre
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 
-autocmd FileType cs inoremap <silent><expr> <Tab>
-      \ pumvisible() ? '<C-n>' :                                                                                    
-      \ getline('.')[col('.')-2] =~# '[[:alnum:].-_#$]' ? '<C-x><C-o>' : '<Tab>'
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" " <C-g>u breaks current undo, please
+" make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -48,7 +51,14 @@ endfunction
 
 
 " Formatting
-nmap <Leader>p <Plug>(Prettier)
+command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
+autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascriptreact,json nmap <Leader>p :<C-u>Prettier<cr>
+autocmd FileType dart nmap <Leader>p :<C-u>DartFmt<cr>
+
+command! -nargs=0 Linter :CocCommand eslint.executeAutofix
+autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascriptreact nmap <Leader>o :<C-u>Linter<cr>
+
+
 
 
 " Go to definition

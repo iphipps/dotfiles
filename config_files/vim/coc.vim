@@ -15,44 +15,49 @@ let g:coc_global_extensions = [
 
 " Auto Completion
 "
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascripreact inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"
+" Use tab for trigger completion with characters ahead and navigate
+" " NOTE: There's always complete item selected by default, you may want to
+" enable
+" " no select by `"suggest.noselect": true` in your configuration file
+" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" " other plugin before putting this into your config
+inoremap <silent><expr> <TAB>
+  \ coc#pum#visible() ? coc#pum#next(1) :
+  \ CheckBackspace() ? "\<Tab>" :
+  \ coc#refresh()
 
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
-" " <C-g>u breaks current undo, please
-" make your own choice
+" <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-
-function! s:check_back_space() abort
+function! CheckBackspace() abort
   let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+  return !col || getline('.')[col - 1] =~# '\s'
 endfunction
-
+   
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    call feedkeys('K', 'in')
   endif
 endfunction
 
 
 " Formatting
+
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
-autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascriptreact,json,markdown nmap <Leader>p :<C-u>Prettier<cr>
+
+autocmd FileType javascript,html,css,scss,typescriptreact,typescript,javascriptreact,json,markdown,* nmap <Leader>p :<C-u>Prettier<cr>
+
 autocmd FileType dart nmap <Leader>p :<C-u>DartFmt<cr>
 
 command! -nargs=0 Linter :CocCommand eslint.executeAutofix

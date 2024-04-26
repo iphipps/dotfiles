@@ -33,5 +33,7 @@
   "tsserver.enableJavascript": true,
   "tsserver.formatOnType": false,
   "typescript.format.enabled": false,
-  "diagnostic.refreshAfterSave": false
+  "diagnostic.refreshAfterSave": false,
+  "html.autoClosingTags": false,
+  "html.format.wrapAttributes": false
 }

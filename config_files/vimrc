@@ -101,6 +101,9 @@ Plug 'tpope/vim-fugitive'
 " Dart
 Plug 'dart-lang/dart-vim-plugin'
 
+" Copilot
+Plug 'github/copilot.vim'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 

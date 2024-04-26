@@ -1,0 +1,9 @@
+#!/bin/bash
+
+HSTCMD=$(tail -n2 ~/.zsh_history | head -n1 | awk -F ';' '{print $2}')
+
+
+echo $HSTCMD >> ~/notes/ip/resources/useful-cmds.md
+echo "$1" >>  ~/notes/ip/resources/useful-cmds.md
+echo "\n" >> ~/notes/ip/resources/useful-cmds.md
+echo "success"

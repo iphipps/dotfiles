@@ -397,7 +397,19 @@ require("lazy").setup({
 	{ -- Ranger
 		"kelly-lin/ranger.nvim",
 		config = function()
-			require("ranger-nvim").setup({ replace_netrw = true })
+			local ranger_nvim = require("ranger-nvim")
+			ranger_nvim.setup({
+				replace_netrw = true,
+				enable_cmds = true,
+				keybinds = {},
+				ui = {
+					border = "none",
+					height = 0.94,
+					width = 1,
+					x = 0.5,
+					y = 0.48,
+				},
+			})
 			vim.api.nvim_set_keymap("n", "<leader>rr", "", {
 				noremap = true,
 				callback = function()
@@ -663,7 +675,7 @@ require("lazy").setup({
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
 				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
+				local disable_filetypes = { c = true, cpp = true, json = true }
 				return {
 					timeout_ms = 500,
 					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],

@@ -22,6 +22,10 @@ vim.opt.foldenable = false
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+-- One global statusline instead of one per window. Stops mini.statusline from
+-- drawing "[Scratch]" labels on Telescope's prompt/results/preview floats.
+vim.opt.laststatus = 3
+
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
@@ -140,6 +144,26 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
+
+	-- Tokyo Night colorscheme — matches Ghostty's "TokyoNight Storm" theme.
+	-- lazy=false + high priority so colors load before everything else.
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {
+			style = "storm", -- "storm" | "night" | "moon" | "day"
+			transparent = false,
+			styles = {
+				comments = { italic = true },
+				keywords = { italic = false },
+			},
+		},
+		config = function(_, opts)
+			require("tokyonight").setup(opts)
+			vim.cmd.colorscheme("tokyonight-storm")
+		end,
+	},
 
 	-- NOTE: Plugins can also be added by using a table,
 	-- with the first argument being the link and the following
@@ -345,6 +369,15 @@ require("lazy").setup({
 				--   },
 				-- },
 				-- pickers = {}
+				defaults = {
+					layout_config = {
+						horizontal = {
+							width = 0.9,
+							height = 0.98,
+							preview_width = 0.4,
+						},
+					},
+				},
 				extensions = {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown(),
@@ -418,6 +451,27 @@ require("lazy").setup({
 			})
 		end,
 	},
+	{ -- Faster TypeScript LSP for monorepos (admin-web, etc).
+		-- Replaces tsserver. Requires nvim >= 0.11 — falls back to tsserver
+		-- (see `servers` table below) on older nvim.
+		"pmizio/typescript-tools.nvim",
+		cond = function() return vim.fn.has("nvim-0.11") == 1 end,
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+		opts = {
+			settings = {
+				tsserver_max_memory = 8192,
+				complete_function_calls = true,
+				expose_as_code_action = "all",
+				tsserver_file_preferences = {
+					includeInlayParameterNameHints = "literals",
+					includeInlayFunctionParameterTypeHints = false,
+					includeInlayVariableTypeHints = false,
+				},
+			},
+		},
+	},
+
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -585,26 +639,17 @@ require("lazy").setup({
 			--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+			-- Each entry below is started by lspconfig ONLY when its root_dir is matched.
+			-- e.g. ruby_lsp won't attach in admin-web (no Gemfile), eslint won't attach
+			-- in a Rails repo (no eslint config), sorbet only attaches when sorbet/config
+			-- exists. So adding more entries is cheap — they just don't start.
+			--
+			-- tsserver is added below only when typescript-tools.nvim can't load
+			-- (nvim < 0.11). When nvim >= 0.11, typescript-tools handles TS/JS.
 			local servers = {
-				-- clangd = {},
-				-- gopls = {},
-				-- pyright = {},
-				-- rust_analyzer = {},
-				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-				--
-				-- Some languages (like typescript) have entire language plugins that can be useful:
-				--    https://github.com/pmizio/typescript-tools.nvim
-				--
-				-- But for many setups, the LSP (`tsserver`) will work just fine
-				tsserver = {
-					capabilities = {},
-					settings = {
-						completions = {
-							completeFunctionCalls = true,
-						},
-					},
-				},
 				ruby_lsp = {},
+				sorbet = {},
+				eslint = {},
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes = { ...},
@@ -621,6 +666,16 @@ require("lazy").setup({
 				},
 			}
 
+			-- Fallback: when typescript-tools.nvim can't run (nvim < 0.11),
+			-- start the stock tsserver instead so JS/TS still gets an LSP.
+			if vim.fn.has("nvim-0.11") ~= 1 then
+				servers.tsserver = {
+					settings = {
+						completions = { completeFunctionCalls = true },
+					},
+				}
+			end
+
 			-- Ensure the servers and tools above are installed
 			--  To check the current status of installed tools and/or manually install
 			--  other tools, you can run
@@ -632,26 +687,27 @@ require("lazy").setup({
 			-- You can add other tools here that you want Mason to install
 			-- for you, so that they are available from within Neovim.
 			local ensure_installed = vim.tbl_keys(servers or {})
+			-- Mason can't install npm-based tools inside Shopify shadowenv'd dirs
+			-- (the npm wrapper rejects them). `prettierd` is installed via brew
+			-- — see ~/dotfiles/CHEATSHEET.md or `brew install prettierd`.
 			vim.list_extend(ensure_installed, {
-				"stylua", -- Used to format Lua code
-				"prettier", -- Used to format JavaScript, TypeScript, etc.
-				"eslint", -- Used to lint JavaScript, TypeScript, etc.
-				"ruby_lsp",
-				"sorbet",
+				"stylua", -- Lua formatter
+				"prettier", -- fallback if prettierd isn't on PATH
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
+			-- Register each server's config with the new vim.lsp.config API (nvim 0.11+).
+			-- mason-lspconfig v2 reads these, ensures the binaries are installed, and
+			-- enables them via vim.lsp.enable() when automatic_enable = true.
+			for server_name, server_opts in pairs(servers) do
+				server_opts.capabilities =
+					vim.tbl_deep_extend("force", {}, capabilities, server_opts.capabilities or {})
+				vim.lsp.config(server_name, server_opts)
+			end
+
 			require("mason-lspconfig").setup({
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						-- This handles overriding only values explicitly passed
-						-- by the server configuration above. Useful when disabling
-						-- certain features of an LSP (for example, turning off formatting for tsserver)
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
-					end,
-				},
+				ensure_installed = vim.tbl_keys(servers),
+				automatic_enable = true,
 			})
 		end,
 	},
@@ -683,23 +739,22 @@ require("lazy").setup({
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
-				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort", "black" },
-				--
-				-- You can use a sub-list to tell conform to run *until* a formatter
-				-- is found.
-				javascript = { { "prettierrd", "prettier" } },
-				typescript = { { "prettierrd", "prettier" } },
-				javascriptreact = { { "prettierrd", "prettier" } },
-				typescriptreact = { { "prettierrd", "prettier" } },
-				svelte = { { "prettierrd", "prettier" } },
-				css = { { "prettierrd", "prettier" } },
-				html = { { "prettierrd", "prettier" } },
-				json = { { "prettierrd", "prettier" } },
-				yaml = { { "prettierrd", "prettier" } },
-				markdown = { { "prettierrd", "prettier" } },
-				graphql = { { "prettierrd", "prettier" } },
-				python = { { "isort", "black" } },
+				-- For prettier-formatted languages: try prettierd (daemon, fast),
+				-- fall back to prettier if not installed. stop_after_first = true
+				-- replaces the old nested-list syntax.
+				javascript = { "prettierd", "prettier", stop_after_first = true },
+				typescript = { "prettierd", "prettier", stop_after_first = true },
+				javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+				typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+				svelte = { "prettierd", "prettier", stop_after_first = true },
+				css = { "prettierd", "prettier", stop_after_first = true },
+				html = { "prettierd", "prettier", stop_after_first = true },
+				json = { "prettierd", "prettier", stop_after_first = true },
+				yaml = { "prettierd", "prettier", stop_after_first = true },
+				markdown = { "prettierd", "prettier", stop_after_first = true },
+				graphql = { "prettierd", "prettier", stop_after_first = true },
+				-- isort then black — run both, in order (sequential).
+				python = { "isort", "black" },
 			},
 		},
 	},
@@ -867,15 +922,22 @@ require("lazy").setup({
 			ensure_installed = {
 				"bash",
 				"c",
+				"css",
 				"diff",
 				"html",
+				"javascript",
+				"json",
 				"lua",
 				"luadoc",
 				"markdown",
+				"scss",
+				"tsx",
+				"typescript",
 				"vim",
 				"vimdoc",
 				"ruby",
 				"graphql",
+				"yaml",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,

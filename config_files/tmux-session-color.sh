@@ -17,12 +17,6 @@ set -euo pipefail
 # Pin specific sessions to specific colors. Values are tmux colour names or
 # hex (e.g. "colour33" or "#5fafff"). Anything not listed falls back to the
 # deterministic hash below.
-declare -A OVERRIDES=(
-  [main]="colour4"     # blue
-  [work]="colour4"     # blue
-  [world]="colour4"    # blue
-)
-
 # --- Palette for the hashed fallback ---------------------------------------
 # Use ANSI slots 1-6 so the colors come from the active terminal theme
 # (Ghostty: TokyoNight Storm). These re-theme automatically if the theme
@@ -38,10 +32,10 @@ PALETTE=(
 
 color_for() {
   local name="$1"
-  if [[ -n "${OVERRIDES[$name]:-}" ]]; then
-    printf '%s' "${OVERRIDES[$name]}"
-    return
-  fi
+  # Explicit overrides — bash 3.2 compatible (no declare -A)
+  case "$name" in
+    main|work|world) printf 'colour4'; return ;;
+  esac
   local sum idx
   sum=$(printf '%s' "$name" | cksum | cut -d' ' -f1)
   idx=$(( sum % ${#PALETTE[@]} ))

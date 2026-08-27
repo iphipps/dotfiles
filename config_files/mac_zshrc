@@ -3,7 +3,8 @@ ZPLUG_HOME="$( brew --prefix )"/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
 
-export EDITOR=/usr/bin/vim
+export EDITOR=nvim
+alias vim=nvim
 
 alias python="python3"
 alias idle="idle3"

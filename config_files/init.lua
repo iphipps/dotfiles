@@ -648,7 +648,6 @@ require("lazy").setup({
 			-- (nvim < 0.11). When nvim >= 0.11, typescript-tools handles TS/JS.
 			local servers = {
 				ruby_lsp = {},
-				sorbet = {},
 				eslint = {},
 				lua_ls = {
 					-- cmd = {...},
@@ -696,19 +695,31 @@ require("lazy").setup({
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-			-- Register each server's config with the new vim.lsp.config API (nvim 0.11+).
-			-- mason-lspconfig v2 reads these, ensures the binaries are installed, and
-			-- enables them via vim.lsp.enable() when automatic_enable = true.
-			for server_name, server_opts in pairs(servers) do
+			for _, server_opts in pairs(servers) do
 				server_opts.capabilities =
 					vim.tbl_deep_extend("force", {}, capabilities, server_opts.capabilities or {})
-				vim.lsp.config(server_name, server_opts)
 			end
 
-			require("mason-lspconfig").setup({
-				ensure_installed = vim.tbl_keys(servers),
-				automatic_enable = true,
-			})
+			if vim.fn.has("nvim-0.11") == 1 then
+				-- Neovim 0.11+: register configs with the native API. mason-lspconfig v2
+				-- then enables them automatically.
+				for server_name, server_opts in pairs(servers) do
+					vim.lsp.config(server_name, server_opts)
+				end
+				require("mason-lspconfig").setup({
+					ensure_installed = vim.tbl_keys(servers),
+					automatic_enable = true,
+				})
+			else
+				-- Neovim 0.10 and older use nvim-lspconfig's setup API.
+				require("mason-lspconfig").setup({
+					ensure_installed = vim.tbl_keys(servers),
+				})
+				local lspconfig = require("lspconfig")
+				for server_name, server_opts in pairs(servers) do
+					lspconfig[server_name].setup(server_opts)
+				end
+			end
 		end,
 	},
 
@@ -739,20 +750,20 @@ require("lazy").setup({
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
-				-- For prettier-formatted languages: try prettierd (daemon, fast),
-				-- fall back to prettier if not installed. stop_after_first = true
-				-- replaces the old nested-list syntax.
-				javascript = { "prettierd", "prettier", stop_after_first = true },
-				typescript = { "prettierd", "prettier", stop_after_first = true },
-				javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-				typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-				svelte = { "prettierd", "prettier", stop_after_first = true },
-				css = { "prettierd", "prettier", stop_after_first = true },
-				html = { "prettierd", "prettier", stop_after_first = true },
-				json = { "prettierd", "prettier", stop_after_first = true },
-				yaml = { "prettierd", "prettier", stop_after_first = true },
-				markdown = { "prettierd", "prettier", stop_after_first = true },
-				graphql = { "prettierd", "prettier", stop_after_first = true },
+				-- For prettier-formatted languages, use the first available formatter:
+				-- prefer the fast prettierd daemon, then fall back to prettier.
+				-- This Conform version expresses alternatives as a nested list.
+				javascript = { { "prettierd", "prettier" } },
+				typescript = { { "prettierd", "prettier" } },
+				javascriptreact = { { "prettierd", "prettier" } },
+				typescriptreact = { { "prettierd", "prettier" } },
+				svelte = { { "prettierd", "prettier" } },
+				css = { { "prettierd", "prettier" } },
+				html = { { "prettierd", "prettier" } },
+				json = { { "prettierd", "prettier" } },
+				yaml = { { "prettierd", "prettier" } },
+				markdown = { { "prettierd", "prettier" } },
+				graphql = { { "prettierd", "prettier" } },
 				-- isort then black — run both, in order (sequential).
 				python = { "isort", "black" },
 			},
